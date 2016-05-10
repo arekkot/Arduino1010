@@ -1,0 +1,33 @@
+{
+  "name": "arduino1010",
+  "version": "0.0.1",
+  "description": "A popular game \"1010!\" controlled through Arduino Board.",
+  "scripts": {
+    "gulp": "gulp",
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pomek/Arduino1010.git"
+  },
+  "keywords": [
+    "Arduino",
+    "1010!"
+  ],
+  "author": "Kamil Piechaczek <github@pomek.pl>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/pomek/Arduino1010/issues"
+  },
+  "homepage": "https://github.com/pomek/Arduino1010#readme",
+  "devDependencies": {
+    "browser-sync": "^2.12.7",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-inject": "^4.0.0",
+    "gulp-rollup": "^1.9.0",
+    "gulp-sass": "^2.3.1",
+    "rollup": "^0.26.2",
+    "run-sequence": "^1.1.5"
+  }
+}
