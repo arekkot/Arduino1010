@@ -6,12 +6,26 @@ const gulp = require('gulp'),
     sass = require('gulp-sass'),
     clean = require('gulp-clean'),
     sequence = require('run-sequence'),
-    browserSync = require('browser-sync').create();
+    browserSync = require('browser-sync').create(),
+    path = require('path');
+
+const paths = {
+    src: {
+        root: './src',
+        css: './src/style',
+        js: './src/app'
+    },
+    dist: {
+        root: './.tmp',
+        css: './.tmp/css',
+        js: './.tmp/js'
+    }
+};
 
 function sassHandler (isWatch) {
-    const handler = gulp.src('./src/style/style.scss')
+    const handler = gulp.src(`${paths.src.css}/style.scss`)
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('./.tmp/css'));
+        .pipe(gulp.dest(paths.dist.css));
 
     if (isWatch) {
         handler.pipe(browserSync.stream());
@@ -21,12 +35,12 @@ function sassHandler (isWatch) {
 }
 
 function jsHandler (isWatch) {
-    const handler = gulp.src('./src/app/index.js')
+    const handler = gulp.src(`${paths.src.js}/index.js`)
         .pipe(rollup({
             format: 'umd',
             banner: `'use strict';\n`
         }))
-        .pipe(gulp.dest('./.tmp/js'));
+        .pipe(gulp.dest(paths.dist.js));
 
     if (isWatch) {
         handler.pipe(browserSync.stream());
@@ -35,9 +49,8 @@ function jsHandler (isWatch) {
     return handler;
 }
 
-
 gulp.task('clean', () => {
-    return gulp.src('./.tmp/', {read: false})
+    return gulp.src(paths.dist.root, {read: false})
         .pipe(clean({
             force: true
         }));
@@ -61,18 +74,18 @@ gulp.task('scripts:watch', () => {
 
 gulp.task('inject', () => {
     const files = {
-            css: gulp.src('./.tmp/css/*.css', {read: false}),
-            js: gulp.src('./.tmp/js/*.js', {read: false})
+            css: gulp.src(`${paths.dist.css}/*.css`, {read: false}),
+            js: gulp.src(`${paths.dist.js}/*.js`, {read: false})
         },
         options = {
             ignorePath: ['.tmp'],
             addRootSlash: false
         };
 
-    return gulp.src('src/index.html')
+    return gulp.src(`${paths.src.root}/index.html`)
         .pipe(inject(files.css, options))
         .pipe(inject(files.js, options))
-        .pipe(gulp.dest('.tmp/'));
+        .pipe(gulp.dest(paths.dist.root));
 });
 
 gulp.task('inject:watch', ['inject'], () => {
@@ -80,13 +93,13 @@ gulp.task('inject:watch', ['inject'], () => {
 });
 
 gulp.task('server', () => {
-    gulp.watch('./src/style/**/*.scss', ['sass:watch']);
-    gulp.watch('./src/app/**/*.js', ['scripts:watch']);
-    gulp.watch('./src/index.html', ['inject:watch']);
+    gulp.watch(`${paths.src.css}/**/*.scss`, ['sass:watch']);
+    gulp.watch(`${paths.src.js}/**/*.js`, ['scripts:watch']);
+    gulp.watch(`${paths.src.root}/index.html`, ['inject:watch']);
 
     browserSync.init({
         server: {
-            baseDir: './.tmp'
+            baseDir: paths.dist.root
         }
     });
 });
