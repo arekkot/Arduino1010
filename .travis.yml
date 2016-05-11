@@ -10,3 +10,7 @@ before_script:
 
 script:
     - npm run gulp units
+
+cache:
+  directories:
+    - node_modules
