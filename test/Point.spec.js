@@ -1,3 +1,5 @@
+'use strict';
+
 import {Point} from '../src/app/Point';
 
 describe('Point Class', () => {

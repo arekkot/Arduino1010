@@ -8,7 +8,8 @@ const gulp = require('gulp'),
     sequence = require('run-sequence'),
     browserSync = require('browser-sync').create(),
     karma = require('karma'),
-    babel = require('rollup-plugin-babel');
+    babel = require('rollup-plugin-babel'),
+    eslint = require('gulp-eslint');
 
 const paths = {
     src: {
@@ -78,7 +79,7 @@ gulp.task('scripts', () => {
     return jsHandler(false);
 });
 
-gulp.task('scripts:watch', () => {
+gulp.task('scripts:watch', ['lint'], () => {
     return jsHandler(true);
 });
 
@@ -118,7 +119,7 @@ gulp.task('inject:watch', ['inject'], () => {
 
 gulp.task('server', () => {
     gulp.watch(`${paths.src.css}/**/*.scss`, ['sass:watch']);
-    gulp.watch(`${paths.src.js}/**/*.js`, ['scripts:watch']);
+    gulp.watch(`${paths.src.root}/**/*.js`, ['scripts:watch']);
     gulp.watch(`${paths.src.root}/index.html`, ['inject:watch']);
 
     browserSync.init({
@@ -128,7 +129,19 @@ gulp.task('server', () => {
     });
 });
 
-gulp.task('test', ['scripts:test'], (done) => {
+gulp.task('lint', function () {
+    return gulp.src([
+            `${paths.src.root}/*.js`,
+            `${paths.src.js}/**/*.js`,
+            `${paths.src.test}/**/*.js`
+        ])
+        .pipe(eslint({
+            extends: 'eslint:recommended'
+        }))
+        .pipe(eslint.format());
+});
+
+gulp.task('test', ['scripts:test', 'lint'], (done) => {
     const server = new karma.Server({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true
