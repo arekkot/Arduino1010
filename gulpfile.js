@@ -37,7 +37,7 @@ function sassHandler (isWatch) {
 }
 
 function jsHandler (isWatch) {
-    const handler = gulp.src(`${paths.src.js}/index.js`)
+    const handler = gulp.src(`${paths.src.root}/index.js`)
         .pipe(rollup({
             format: 'umd',
             banner: `'use strict';\n`
