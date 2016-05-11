@@ -7,18 +7,20 @@ const gulp = require('gulp'),
     clean = require('gulp-clean'),
     sequence = require('run-sequence'),
     browserSync = require('browser-sync').create(),
-    path = require('path');
+    karma = require('karma');
 
 const paths = {
     src: {
-        root: './src',
-        css: './src/style',
-        js: './src/app'
+        root: 'src',
+        css: 'src/style',
+        js: 'src/app',
+        test: 'test'
     },
     dist: {
-        root: './.tmp',
-        css: './.tmp/css',
-        js: './.tmp/js'
+        root: '.tmp',
+        css: '.tmp/css',
+        js: '.tmp/js',
+        test: 'test/.tmp'
     }
 };
 
@@ -56,6 +58,13 @@ gulp.task('clean', () => {
         }));
 });
 
+gulp.task('clean:test', () => {
+    return gulp.src(paths.dist.test, {read: false})
+        .pipe(clean({
+            force: true
+        }));
+});
+
 gulp.task('sass', () => {
     return sassHandler(false);
 });
@@ -72,13 +81,22 @@ gulp.task('scripts:watch', () => {
     return jsHandler(true);
 });
 
+gulp.task('scripts:test', () => {
+    return gulp.src(`${paths.src.test}/**/*.spec.js`)
+        .pipe(rollup({
+            format: 'umd',
+            banner: `'use strict';\n`
+        }))
+        .pipe(gulp.dest(paths.dist.test));
+});
+
 gulp.task('inject', () => {
     const files = {
             css: gulp.src(`${paths.dist.css}/*.css`, {read: false}),
             js: gulp.src(`${paths.dist.js}/*.js`, {read: false})
         },
         options = {
-            ignorePath: ['.tmp'],
+            ignorePath: [paths.dist.root],
             addRootSlash: false
         };
 
@@ -104,8 +122,19 @@ gulp.task('server', () => {
     });
 });
 
+gulp.task('test', ['scripts:test'], (done) => {
+    const server = new karma.Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done);
+
+    return server.start();
+});
+
+gulp.task('units', (done) => {
+    sequence('test', 'clean:test', done);
+});
+
 gulp.task('default', (done) => {
-    sequence('clean', 'sass', 'scripts', 'inject', 'server', () => {
-        done();
-    });
+    sequence('clean', 'sass', 'scripts', 'inject', 'server', done);
 });

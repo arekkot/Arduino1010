@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "A popular game \"1010!\" controlled through Arduino Board.",
   "scripts": {
-    "gulp": "gulp",
-    "test": ""
+    "gulp": "gulp"
   },
   "repository": {
     "type": "git",
@@ -25,8 +24,15 @@
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-inject": "^4.0.0",
+    "gulp-karma": "0.0.4",
     "gulp-rollup": "^1.9.0",
     "gulp-sass": "^2.3.1",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.9",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-jasmine": "^0.3.8",
+    "karma-jasmine-jquery": "^0.1.1",
+    "karma-jasmine-matchers": "^2.0.2",
     "rollup": "^0.26.2",
     "run-sequence": "^1.1.5"
   }
