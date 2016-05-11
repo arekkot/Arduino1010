@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (config) => {
-    const configuration = {
+    config.set({
         basePath: './',
         frameworks: [
             'jasmine',
@@ -11,7 +11,7 @@ module.exports = (config) => {
             'test/.tmp/**/*.spec.js'
         ],
         plugins: [
-            'karma-chrome-launcher',
+            'karma-phantomjs-launcher',
             'karma-jasmine',
             'karma-jasmine-matchers'
         ],
@@ -19,23 +19,8 @@ module.exports = (config) => {
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
-        browsers: [
-            'Chrome'
-        ],
+        browsers: ['PhantomJS'],
         singleRun: true,
         autoWatch: false
-    };
-
-    // https://github.com/karma-runner/karma/issues/1144#issuecomment-53633076
-    if (configuration.browsers[0] === 'Chrome' && process.env.TRAVIS) {
-        configuration.customLaunchers = {
-            'chrome-travis-ci': {
-                base: 'Chrome',
-                flags: ['--no-sandbox']
-            }
-        };
-        configuration.browsers = ['chrome-travis-ci'];
-    }
-
-    config.set(configuration);
+    });
 };

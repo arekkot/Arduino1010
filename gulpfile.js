@@ -7,7 +7,8 @@ const gulp = require('gulp'),
     clean = require('gulp-clean'),
     sequence = require('run-sequence'),
     browserSync = require('browser-sync').create(),
-    karma = require('karma');
+    karma = require('karma'),
+    babel = require('rollup-plugin-babel');
 
 const paths = {
     src: {
@@ -84,8 +85,13 @@ gulp.task('scripts:watch', () => {
 gulp.task('scripts:test', () => {
     return gulp.src(`${paths.src.test}/**/*.spec.js`)
         .pipe(rollup({
+            banner: `'use strict';\n`,
             format: 'umd',
-            banner: `'use strict';\n`
+            plugins: [
+                babel({
+                    exclude: 'node_modules/**'
+                })
+            ]
         }))
         .pipe(gulp.dest(paths.dist.test));
 });
