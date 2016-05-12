@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (config) => {
-    config.set({
+    const configuration = {
         basePath: './',
         frameworks: [
             'jasmine',
@@ -11,7 +11,7 @@ module.exports = (config) => {
             'test/.tmp/**/*.spec.js'
         ],
         plugins: [
-            'karma-phantomjs-launcher',
+            'karma-chrome-launcher',
             'karma-jasmine',
             'karma-jasmine-matchers'
         ],
@@ -19,8 +19,10 @@ module.exports = (config) => {
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
-        browsers: ['PhantomJS'],
+        browsers: ['Chrome'],
         singleRun: true,
         autoWatch: false
-    });
+    };
+
+    config.set(configuration);
 };

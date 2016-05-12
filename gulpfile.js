@@ -8,7 +8,6 @@ const gulp = require('gulp'),
     sequence = require('run-sequence'),
     browserSync = require('browser-sync').create(),
     karma = require('karma'),
-    babel = require('rollup-plugin-babel'),
     eslint = require('gulp-eslint');
 
 const paths = {
@@ -87,12 +86,7 @@ gulp.task('scripts:test', () => {
     return gulp.src(`${paths.src.test}/**/*.spec.js`)
         .pipe(rollup({
             banner: `'use strict';\n`,
-            format: 'umd',
-            plugins: [
-                babel({
-                    exclude: 'node_modules/**'
-                })
-            ]
+            format: 'umd'
         }))
         .pipe(gulp.dest(paths.dist.test));
 });

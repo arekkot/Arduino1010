@@ -8,7 +8,8 @@
     "describe": true,
     "beforeEach": true,
     "it": true,
-    "expect": true
+    "expect": true,
+    "Map": true
   },
   "rules": {
     "semi": 2

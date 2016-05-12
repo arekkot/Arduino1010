@@ -17,4 +17,8 @@ describe('Point Class', () => {
         expect(point.x).toBe(2);
         expect(point.y).toBe(5);
     });
+
+    it('returns point id', () => {
+        expect(point.id).toBe('25');
+    });
 });
