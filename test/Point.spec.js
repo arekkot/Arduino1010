@@ -21,4 +21,13 @@ describe('Point Class', () => {
     it('returns point id', () => {
         expect(point.id).toBe('25');
     });
+
+    it('moves point', () => {
+        const vectorPart = new Point(3, 1),
+            newPoint = point.move(vectorPart);
+
+        expect(newPoint.x).toBe(5);
+        expect(newPoint.y).toBe(6);
+        expect(newPoint.id).toBe('56');
+    });
 });

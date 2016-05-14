@@ -9,7 +9,7 @@ describe('Shape Class', () => {
     let shape;
 
     beforeEach(() => {
-        shape = new Shape(3, color, ...[
+        shape = new Shape(color, ...[
             new Point(0, 0),
             new Point(1, 0),
             new Point(2, 0),
@@ -20,23 +20,5 @@ describe('Shape Class', () => {
 
     it('is initializable', () => {
         expect(shape instanceof Shape).toBeTruthy();
-    });
-
-    const mapValues = [
-        {id: "00", value: true},
-        {id: "01", value: true},
-        {id: "02", value: true},
-        {id: "10", value: true},
-        {id: "11", value: false},
-        {id: "12", value: false},
-        {id: "20", value: true},
-        {id: "21", value: false},
-        {id: "22", value: false}
-    ];
-
-    Object.keys(mapValues).forEach((item) => {
-        it(`field ${item.id} should be marked as ${item.value ? 'available' : 'unavailable'}`, () => {
-            expect(shape.fields.get(item.id)).toBe(item.value);
-        });
     });
 });

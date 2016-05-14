@@ -9,7 +9,9 @@
     "beforeEach": true,
     "it": true,
     "expect": true,
-    "Map": true
+    "Map": true,
+    "WeakMap": true,
+    "Symbol": true
   },
   "rules": {
     "semi": 2

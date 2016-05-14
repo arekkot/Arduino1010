@@ -1,3 +1,9 @@
+'use strict';
+
+const COLOR_RED = Symbol('Color Red'),
+    COLOR_GREEN = Symbol('Color Green'),
+    COLOR_BLUE = Symbol('Color Blue');
+
 export class Color {
     /**
      * @param {number} red
@@ -5,30 +11,30 @@ export class Color {
      * @param {number} blue
      */
     constructor (red, green, blue) {
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
+        this[COLOR_RED] = red;
+        this[COLOR_GREEN] = green;
+        this[COLOR_BLUE] = blue;
     }
 
     /**
      * @returns {number}
      */
     get r () {
-        return this.red;
+        return this[COLOR_RED];
     }
 
     /**
      * @returns {number}
      */
     get g () {
-        return this.green;
+        return this[COLOR_GREEN];
     }
 
     /**
      * @returns {number}
      */
     get b () {
-        return this.blue;
+        return this[COLOR_BLUE];
     }
 
     /**
