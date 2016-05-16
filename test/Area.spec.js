@@ -51,17 +51,17 @@ describe('Area Class', () => {
 
         area.appendShape(timesShape, cornerPoint);
 
-        //09. [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-        //08. [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-        //07. [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-        //06. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
-        //05. [ ][ ][ ][X][ ][ ][ ][ ][ ][ ]
-        //04. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
-        //03. [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-        //02. [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-        //01. [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-        //00. [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
         //--. 00.01.02.03.04.05.06.07.08.09.
+        //00. [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
+        //01. [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
+        //02. [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
+        //03. [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
+        //04. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
+        //05. [ ][ ][ ][X][ ][ ][ ][ ][ ][ ]
+        //06. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
+        //07. [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
+        //08. [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
+        //09. [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
 
         expect(area.canAppendShape(timesShape, new Point(2, 6))).toBeFalsy();
         expect(area.canAppendShape(timesShape, new Point(4, 4))).toBeFalsy();
@@ -117,17 +117,17 @@ describe('Area Class', () => {
             filledRowsAndCells = area.filledRowsAndCells;
         });
 
-        //09. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
-        //08. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
-        //07. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
-        //06. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
-        //05. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
-        //04. [X][X][X][X][X][X][X][X][X][X]
-        //03. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
-        //02. [X][X][X][X][X][X][X][X][X][X]
-        //01. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
-        //00. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
         //--. 00.01.02.03.04.05.06.07.08.09.
+        //00. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
+        //01. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
+        //02. [X][X][X][X][X][X][X][X][X][X]
+        //03. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
+        //04. [X][X][X][X][X][X][X][X][X][X]
+        //05. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
+        //06. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
+        //07. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
+        //08. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
+        //09. [ ][ ][X][ ][X][ ][ ][ ][ ][ ]
 
         it('as array', () => {
             expect(filledRowsAndCells).toBeArrayOfSize(36);
@@ -175,5 +175,27 @@ describe('Area Class', () => {
 
         expect(filledRowsAndCells).toBeArrayOfSize(0);
         expect(nonEmptyPoints).toBeArrayOfSize(5);
+    });
+
+    it('add shape somewhere', () => {
+        const shape = new Shape(redColor, ...points);
+
+        expect(area.canAppendShapeAnywhere(shape)).toBeTruthy();
+    });
+
+    it('cannot add shape anywhere', () => {
+        let shapePoints = [];
+
+        for (let x = 1; x < 9; ++x) {
+            for (let y = 1; y < 9; ++y) {
+                shapePoints.push(new Point(x, y));
+            }
+        }
+
+        let shape = new Shape(redColor, ...shapePoints);
+        area.appendShape(shape, new Point(1, 1));
+
+        shape = new Shape(redColor, new Point(0, 0), new Point(1, 1), new Point(2, 2));
+        expect(area.canAppendShapeAnywhere(shape)).toBeFalsy();
     });
 });

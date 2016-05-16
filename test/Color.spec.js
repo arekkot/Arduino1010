@@ -19,7 +19,16 @@ describe('Color Class', () => {
         expect(color.b).toBe(50);
     });
 
+    it('clones object', () => {
+        const clonedColor = color.clone;
+
+        expect(clonedColor instanceof Color).toBeTruthy();
+        expect(clonedColor).not.toBe(color);
+        expect(clonedColor.hex).toBe(color.hex);
+    });
+
     it('returns color as hex string', () => {
         expect(color.hex).toBe('ff6432');
+        expect(new Color(255, 0, 0).hex).toBe('ff0000');
     });
 });

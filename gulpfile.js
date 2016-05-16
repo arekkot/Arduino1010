@@ -10,6 +10,17 @@ const gulp = require('gulp'),
     karma = require('karma'),
     eslint = require('gulp-eslint');
 
+const rollupPlugins = [
+    require('rollup-plugin-node-resolve')({
+        jsnext: true,
+        main: true
+    }),
+
+    require('rollup-plugin-commonjs')({
+        sourceMap: false
+    })
+];
+
 const paths = {
     src: {
         root: 'src',
@@ -41,7 +52,8 @@ function jsHandler (isWatch) {
     const handler = gulp.src(`${paths.src.root}/index.js`)
         .pipe(rollup({
             format: 'umd',
-            banner: `'use strict';\n`
+            banner: `'use strict';\n`,
+            plugins: rollupPlugins
         }))
         .pipe(gulp.dest(paths.dist.js));
 
@@ -86,7 +98,8 @@ gulp.task('scripts:test', () => {
     return gulp.src(`${paths.src.test}/**/*.spec.js`)
         .pipe(rollup({
             banner: `'use strict';\n`,
-            format: 'umd'
+            format: 'umd',
+            plugins: rollupPlugins
         }))
         .pipe(gulp.dest(paths.dist.test));
 });

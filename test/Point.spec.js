@@ -22,6 +22,16 @@ describe('Point Class', () => {
         expect(point.id).toBe('25');
     });
 
+    it('clones object', () => {
+        const clonedPoint = point.clone;
+
+        expect(clonedPoint instanceof Point).toBeTruthy();
+        expect(clonedPoint).not.toBe(point);
+        expect(clonedPoint.x).toBe(2);
+        expect(clonedPoint.y).toBe(5);
+        expect(clonedPoint.id).toBe('25');
+    });
+
     it('moves point', () => {
         const vectorPart = new Point(3, 1),
             newPoint = point.move(vectorPart);

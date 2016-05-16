@@ -6,7 +6,7 @@ const SHAPE_COLOR = Symbol('Shape Color'),
 export class Shape {
     /**
      * @param {Color} color
-     * @param {Point[]} points
+     * @param {Point} points
      */
     constructor (color, ...points) {
         this[SHAPE_COLOR] = color;
@@ -25,5 +25,14 @@ export class Shape {
      */
     get points () {
         return this[SHAPE_POINTS];
+    }
+
+    /**
+     * @returns {Shape}
+     */
+    get clone () {
+        const points = this.points.map(item => item.clone);
+
+        return new Shape(this.color.clone, ...points);
     }
 }

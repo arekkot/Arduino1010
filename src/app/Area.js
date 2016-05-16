@@ -103,7 +103,32 @@ export class Area {
     }
 
     /**
-     * @param {Point[]} points
+     * @param {Shape} shape
+     * @returns {boolean}
+     */
+    canAppendShapeAnywhere (shape) {
+        let downLimitPoint = shape.points.reduce((prev, current) => {
+                return (prev.y > current.y) ? prev : current;
+            }),
+            rightLimitPoint = shape.points.reduce((prev, current) => {
+                return (prev.x > current.x) ? prev : current;
+            });
+
+        downLimitPoint = MAP_SIZE - downLimitPoint.y;
+        rightLimitPoint = MAP_SIZE - rightLimitPoint.y;
+
+        for (let x = 0; x < rightLimitPoint; ++x) {
+            for (let y = 0; y < downLimitPoint; ++y) {
+                if (true === this.canAppendShape(shape, new Point(x, y))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param {Point} points
      * @returns {void}
      */
     clearFields (...points) {

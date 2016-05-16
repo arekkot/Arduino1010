@@ -35,6 +35,13 @@ export class Point {
     }
 
     /**
+     * @returns {Point}
+     */
+    get clone () {
+        return new Point(this.x, this.y);
+    }
+
+    /**
      * Vector begins at (0, 0).
      *
      * @param {Point} vector

@@ -41,6 +41,19 @@ export class Color {
      * @returns {string}
      */
     get hex () {
-        return this.r.toString(16) + this.g.toString(16) + this.b.toString(16);
+        const colors = [
+            this.r.toString(16),
+            this.g.toString(16),
+            this.b.toString(16)
+        ];
+
+        return colors.map(col => (col.length === 1) ? `0${col}` : col).join('');
+    }
+
+    /**
+     * @returns {Color}
+     */
+    get clone () {
+        return new Color(this.r, this.g, this.b);
     }
 }

@@ -21,4 +21,17 @@ describe('Shape Class', () => {
     it('is initializable', () => {
         expect(shape instanceof Shape).toBeTruthy();
     });
+
+    it('clones object', () => {
+        const clonedShape = shape.clone;
+
+        expect(clonedShape instanceof Shape).toBeTruthy();
+        expect(clonedShape).not.toBe(shape);
+
+        expect(clonedShape.color instanceof Color).toBeTruthy();
+
+        clonedShape.points.forEach(item => {
+            expect(item instanceof Point).toBeTruthy();
+        });
+    });
 });
