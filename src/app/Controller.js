@@ -149,11 +149,11 @@ export class Controller {
     /**
      * Pastes chosen block to map.
      *
-     * @returns {*}
+     * @returns {boolean}
      */
     pasteBlock () {
         if (false === this.canMoveShape()) {
-            return;
+            return false;
         }
 
         const selectedKey = this[CONTROLLER_SELECTED_KEY],
@@ -164,7 +164,7 @@ export class Controller {
             this[CONTROLLER_AREA].appendShape(selectedProposition, selectedPoint);
             this[CONTROLLER_EVENT_EMITTER].emit('gui.appendedShape', selectedProposition.points.length);
         } catch (e) {
-            return;
+            return false;
         }
 
         this[CONTROLLER_AVAILABLE_BLOCKS].set(selectedKey, null);
@@ -183,5 +183,7 @@ export class Controller {
         if (false === canAppendAnyShape) {
             this[CONTROLLER_EVENT_EMITTER].emit('gui.gameOver');
         }
+
+        return true;
     }
 }

@@ -2,9 +2,6 @@
 
 import {Config} from './config';
 import {Color} from '../Color';
-import {ShapeFactory} from '../ShapeFactory';
-
-const shapeFactory = new ShapeFactory(Config.BLOCKS);
 
 /**
  * @param {CanvasRenderingContext2D} context
@@ -39,21 +36,4 @@ export function drawBlock (context, point, canvasPosition, color) {
     context.fill(block);
 
     context.restore();
-}
-
-/**
- * @param {Map} availableBlocks
- */
-export function generateAvailableBlocks (availableBlocks) {
-    if (availableBlocks.size === 0) {
-        availableBlocks.set(1, null);
-        availableBlocks.set(2, null);
-        availableBlocks.set(3, null);
-    }
-
-    for (let [key, shape] of availableBlocks) {
-        if (shape === null) {
-            availableBlocks.set(key, shapeFactory.make());
-        }
-    }
 }

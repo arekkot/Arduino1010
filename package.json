@@ -39,6 +39,8 @@
     "run-sequence": "^1.1.5"
   },
   "dependencies": {
-    "event-emitter": "^0.3.4"
+    "event-emitter": "^0.3.4",
+    "johnny-five": "^0.9.44",
+    "socket.io": "^1.4.5"
   }
 }

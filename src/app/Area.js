@@ -115,7 +115,7 @@ export class Area {
             });
 
         downLimitPoint = MAP_SIZE - downLimitPoint.y;
-        rightLimitPoint = MAP_SIZE - rightLimitPoint.y;
+        rightLimitPoint = MAP_SIZE - rightLimitPoint.x;
 
         for (let x = 0; x < rightLimitPoint; ++x) {
             for (let y = 0; y < downLimitPoint; ++y) {

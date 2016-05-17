@@ -8,7 +8,8 @@ const gulp = require('gulp'),
     sequence = require('run-sequence'),
     browserSync = require('browser-sync').create(),
     karma = require('karma'),
-    eslint = require('gulp-eslint');
+    eslint = require('gulp-eslint'),
+    socket = require('socket.io');
 
 const rollupPlugins = [
     require('rollup-plugin-node-resolve')({
@@ -124,14 +125,21 @@ gulp.task('inject:watch', ['inject'], () => {
     browserSync.reload();
 });
 
-gulp.task('server', () => {
+gulp.task('arduino', () => {
+    require('./board')(socket(3050));
+});
+
+gulp.task('server', ['arduino'], () => {
     gulp.watch(`${paths.src.css}/**/*.scss`, ['sass:watch']);
     gulp.watch(`${paths.src.root}/**/*.js`, ['scripts:watch']);
     gulp.watch(`${paths.src.root}/index.html`, ['inject:watch']);
 
     browserSync.init({
         server: {
-            baseDir: paths.dist.root
+            baseDir: paths.dist.root,
+            routes: {
+                "/node_modules": "./node_modules"
+            }
         }
     });
 });
