@@ -22,6 +22,11 @@ canvasPositionMap.set(1, gridFactory.draw(700, 17, 150, Config.SMALL_BLOCK_SIZE,
 canvasPositionMap.set(2, gridFactory.draw(700, 217, 150, Config.SMALL_BLOCK_SIZE, 2.5));
 canvasPositionMap.set(3, gridFactory.draw(700, 417, 150, Config.SMALL_BLOCK_SIZE, 2.5));
 
+context.font = "48px serif";
+context.fillText("1.", 650, 50);
+context.fillText("2.", 650, 250);
+context.fillText("3.", 650, 450);
+
 const gameArea = new Area(),
     gameController = new Controller(event, gameArea, availableBlocks),
     shapeFactory = new ShapeFactory(Config.BLOCKS);
@@ -80,13 +85,16 @@ event.on('gui.selectProposition', (selectedKey, selectedPoint) => {
 
 event.on('gui.gameOver', () => {
     socket.emit('control.gameOver');
-    console.log('Game Over');
-    document.body.innerHTML = 'Game Over. Please - Refresh!';
+    document.querySelector('.js-game-over').classList.remove('layer--hide');
 });
 
-event.on('gui.appendedShape', (earnedPoints) => {
+event.on('gui.appendedShape', earnedPoints => {
     points += earnedPoints;
     console.log('Score:', points);
+});
+
+socket.on('control.ready', () => {
+    document.querySelector('.js-loader').classList.add('layer--hide');
 });
 
 socket.on('control.moveUp', () => {
@@ -113,7 +121,7 @@ socket.on('control.pasteBlock', () => {
     }
 });
 
-socket.on('control.selectProposition', (number) => {
+socket.on('control.selectProposition', number => {
     gameController.selectProposition(number);
 
     if (0 === number) {
@@ -123,11 +131,6 @@ socket.on('control.selectProposition', (number) => {
         socket.emit('control.selectedColor', shape.color.hex);
     }
 });
-
-context.font = "48px serif";
-context.fillText("1.", 650, 50);
-context.fillText("2.", 650, 250);
-context.fillText("3.", 650, 450);
 
 event.emit('gui.makeNewProposition', availableBlocks, 1);
 event.emit('gui.makeNewProposition', availableBlocks, 2);

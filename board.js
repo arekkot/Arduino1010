@@ -38,6 +38,7 @@ function main (socket) {
 
     board.on('ready', function () {
         isInitializable = true;
+        socket.emit('control.ready');
 
         greenLed = new five.Led(1).off();
         redLed_1 = new five.Led(2).off();
@@ -121,9 +122,6 @@ function main (socket) {
         }
 
         previousValue = null;
-        redLed_1.stop();
-        redLed_2.stop();
-        greenLed.blink(BLINK_TIME);
 
         for (let ledItem of ledMap.values()) {
             ledItem.off();
@@ -132,6 +130,20 @@ function main (socket) {
 
     function reloadGame () {
         clearLeds();
+
+        if (redLed_1) {
+            redLed_1.stop();
+            redLed_1.off();
+        }
+
+        if (redLed_2) {
+            redLed_2.stop();
+            redLed_2.off();
+        }
+
+        if (greenLed) {
+            greenLed.blink(BLINK_TIME);
+        }
     }
 }
 

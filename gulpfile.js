@@ -144,7 +144,7 @@ gulp.task('server', ['arduino'], () => {
     });
 });
 
-gulp.task('lint', function () {
+gulp.task('lint', () => {
     return gulp.src([
             `${paths.src.root}/*.js`,
             `${paths.src.js}/**/*.js`,
@@ -165,10 +165,10 @@ gulp.task('test', ['scripts:test', 'lint'], (done) => {
     return server.start();
 });
 
-gulp.task('units', (done) => {
+gulp.task('units', done => {
     sequence('test', 'clean:test', done);
 });
 
-gulp.task('default', (done) => {
+gulp.task('default', done => {
     sequence('clean', 'sass', 'scripts', 'inject', 'server', done);
 });

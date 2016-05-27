@@ -68,9 +68,19 @@ export class Controller {
      * @returns {void}
      */
     moveUp () {
-        const selectedPoint = this[CONTROLLER_SELECTED_POINT];
+        if (false === this.canMoveShape()) {
+            return;
+        }
 
-        if (false === this.canMoveShape() || selectedPoint.y === 0) {
+        const selectedPoint = this[CONTROLLER_SELECTED_POINT],
+            selectedProposition = this[CONTROLLER_AVAILABLE_BLOCKS].get(
+                this[CONTROLLER_SELECTED_KEY]
+            ),
+            upLimitPoint = selectedProposition.points.reduce((prev, current) => {
+                return (prev.y < current.y) ? prev : current;
+            });
+
+        if (upLimitPoint.y === selectedPoint.y) {
             return;
         }
 
@@ -84,9 +94,19 @@ export class Controller {
      * @returns {void}
      */
     moveLeft () {
-        const selectedPoint = this[CONTROLLER_SELECTED_POINT];
+        if (false === this.canMoveShape()) {
+            return;
+        }
 
-        if (false === this.canMoveShape() || selectedPoint.x === 0) {
+        const selectedPoint = this[CONTROLLER_SELECTED_POINT],
+            selectedProposition = this[CONTROLLER_AVAILABLE_BLOCKS].get(
+                this[CONTROLLER_SELECTED_KEY]
+            ),
+            leftLimitPoint = selectedProposition.points.reduce((prev, current) => {
+                return (prev.x < current.x) ? prev : current;
+            });
+
+        if (leftLimitPoint.x === selectedPoint.x) {
             return;
         }
 
