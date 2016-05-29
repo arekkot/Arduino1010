@@ -51,7 +51,7 @@ Please follow [the instruction](https://github.com/rwaldron/johnny-five/wiki/Get
 
 #### Circuit diagram
 
-![Circuit diagram](docs/Arduino1010_bb.png)
+![Circuit diagram](docs/Arduino1010_schem.png)
 
 ## Development
 
