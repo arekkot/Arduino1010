@@ -1,4 +1,6 @@
 export const Config = {
+    MAP_SIZE: 10,
+    
     BLOCKS: [
         {
             //--. 00.

@@ -22,8 +22,8 @@ describe('Point Class', () => {
         expect(point.id).toBe('25');
     });
 
-    it('clones object', () => {
-        const clonedPoint = point.clone;
+    it('allows to clone object', () => {
+        const clonedPoint = point.clone();
 
         expect(clonedPoint instanceof Point).toBeTruthy();
         expect(clonedPoint).not.toBe(point);
@@ -39,5 +39,11 @@ describe('Point Class', () => {
         expect(newPoint.x).toBe(5);
         expect(newPoint.y).toBe(6);
         expect(newPoint.id).toBe('56');
+    });
+
+    it('compares points', () => {
+        expect(point.isEqual(new Point(2, 5))).toBeTruthy();
+        expect(point.isEqual(new Point(3, 5))).toBeFalsy();
+        expect(point.isEqual(new Point(2, 6))).toBeFalsy();
     });
 });

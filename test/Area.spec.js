@@ -4,6 +4,7 @@ import {Area} from '../src/app/Area';
 import {Color} from '../src/app/Color';
 import {Shape} from '../src/app/Shape';
 import {Point} from '../src/app/Point';
+import {Config} from './stub/gui/config';
 
 describe('Area Class', () => {
     let area;
@@ -18,7 +19,7 @@ describe('Area Class', () => {
         ];
 
     beforeEach(() => {
-        area = new Area();
+        area = new Area(Config.MAP_SIZE);
     });
 
     it('is initializable', () => {
@@ -90,7 +91,7 @@ describe('Area Class', () => {
         let filledRowsAndCells;
 
         beforeEach(() => {
-            area = new Area();
+            area = new Area(Config.MAP_SIZE);
 
             const horizontalPoints = [],
                 verticalPoints = [];
@@ -186,8 +187,8 @@ describe('Area Class', () => {
     it('cannot add shape anywhere', () => {
         let shapePoints = [];
 
-        for (let x = 1; x < 9; ++x) {
-            for (let y = 1; y < 9; ++y) {
+        for (let x = 0; x < 9; ++x) {
+            for (let y = 0; y < 9; ++y) {
                 shapePoints.push(new Point(x, y));
             }
         }
@@ -195,7 +196,7 @@ describe('Area Class', () => {
         let shape = new Shape(redColor, ...shapePoints);
         area.appendShape(shape, new Point(1, 1));
 
-        shape = new Shape(redColor, new Point(0, 0), new Point(1, 1), new Point(2, 2));
+        shape = new Shape(redColor, new Point(0, 0), new Point(1, 1));
         expect(area.canAppendShapeAnywhere(shape)).toBeFalsy();
     });
 });

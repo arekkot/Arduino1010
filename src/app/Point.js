@@ -37,7 +37,7 @@ export class Point {
     /**
      * @returns {Point}
      */
-    get clone () {
+    clone () {
         return new Point(this.x, this.y);
     }
 
@@ -51,5 +51,14 @@ export class Point {
             this.x + vector.x,
             this.y + vector.y
         );
+    }
+
+    /**
+     * @param {Point} point
+     * @returns {boolean}
+     */
+    isEqual (point) {
+        return this.x === point.x
+            && this.y === point.y;
     }
 }

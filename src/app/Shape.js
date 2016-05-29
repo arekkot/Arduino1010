@@ -30,9 +30,9 @@ export class Shape {
     /**
      * @returns {Shape}
      */
-    get clone () {
-        const points = this.points.map(item => item.clone);
+    clone () {
+        const points = this.points.map(item => item.clone());
 
-        return new Shape(this.color.clone, ...points);
+        return new Shape(this.color.clone(), ...points);
     }
 }

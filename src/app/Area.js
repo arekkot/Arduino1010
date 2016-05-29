@@ -2,17 +2,21 @@
 
 import {Point} from './Point';
 
-const MAP_SIZE = 10,
+const AREA_MAP_SIZE = Symbol('Area Map Size'),
     AREA_FIELDS = Symbol('Area Fields'),
     AREA_POINTS = Symbol('Area Points');
 
 export class Area {
-    constructor () {
+    /**
+     * @param {number} mapSize
+     */
+    constructor (mapSize) {
+        this[AREA_MAP_SIZE] = mapSize;
         this[AREA_FIELDS] = new Map();
         this[AREA_POINTS] = new WeakMap();
 
-        for (let x = 0; x < MAP_SIZE; ++x) {
-            for (let y = 0; y < MAP_SIZE; ++y) {
+        for (let x = 0; x < this[AREA_MAP_SIZE]; ++x) {
+            for (let y = 0; y < this[AREA_MAP_SIZE]; ++y) {
                 const point = new Point(x, y);
 
                 this[AREA_FIELDS].set(`${x}${y}`, point);
@@ -40,11 +44,11 @@ export class Area {
     get filledRowsAndCells () {
         const points = [];
 
-        for (let x = 0; x < MAP_SIZE; ++x) {
+        for (let x = 0; x < this[AREA_MAP_SIZE]; ++x) {
             for (let isVertical of [true, false]) {
                 const rowLinePoints = [];
 
-                for (let y = 0; y < MAP_SIZE; ++y) {
+                for (let y = 0; y < this[AREA_MAP_SIZE]; ++y) {
                     rowLinePoints.push(
                         this[AREA_FIELDS].get(isVertical ? `${x}${y}` : `${y}${x}`)
                     );
@@ -107,18 +111,24 @@ export class Area {
      * @returns {boolean}
      */
     canAppendShapeAnywhere (shape) {
-        let downLimitPoint = shape.points.reduce((prev, current) => {
+        let upLimitPoint = shape.points.reduce((prev, current) => {
+                return (prev.y < current.y) ? prev : current;
+            }),
+            leftLimitPoint = shape.points.reduce((prev, current) => {
+                return (prev.x < current.x) ? prev : current;
+            }),
+            downLimitPoint = shape.points.reduce((prev, current) => {
                 return (prev.y > current.y) ? prev : current;
             }),
             rightLimitPoint = shape.points.reduce((prev, current) => {
                 return (prev.x > current.x) ? prev : current;
             });
 
-        downLimitPoint = MAP_SIZE - downLimitPoint.y;
-        rightLimitPoint = MAP_SIZE - rightLimitPoint.x;
+        downLimitPoint = this[AREA_MAP_SIZE] - downLimitPoint.y;
+        rightLimitPoint = this[AREA_MAP_SIZE] - rightLimitPoint.x;
 
-        for (let x = 0; x < rightLimitPoint; ++x) {
-            for (let y = 0; y < downLimitPoint; ++y) {
+        for (let x = leftLimitPoint.x; x < rightLimitPoint; ++x) {
+            for (let y = upLimitPoint.y; y < downLimitPoint; ++y) {
                 if (true === this.canAppendShape(shape, new Point(x, y))) {
                     return true;
                 }

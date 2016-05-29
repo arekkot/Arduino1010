@@ -1,6 +1,5 @@
 'use strict';
 
-import {Config} from './config';
 import {Color} from '../Color';
 
 /**

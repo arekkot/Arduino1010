@@ -36,6 +36,13 @@ export class Controller {
     }
 
     /**
+     * @returns {Point}
+     */
+    get selectedPoint () {
+        return this[CONTROLLER_SELECTED_POINT];
+    }
+
+    /**
      * Returns true if selected key and point are present.
      *
      * @returns {boolean}
@@ -190,6 +197,7 @@ export class Controller {
         this[CONTROLLER_AVAILABLE_BLOCKS].set(selectedKey, null);
 
         this[CONTROLLER_EVENT_EMITTER].emit('gui.drawBlocks', selectedProposition, selectedPoint);
+        // todo: can remove this event?
         this[CONTROLLER_EVENT_EMITTER].emit('gui.removeProposition', selectedProposition, selectedKey);
         this[CONTROLLER_EVENT_EMITTER].emit('gui.makeNewProposition', this[CONTROLLER_AVAILABLE_BLOCKS], selectedKey);
         this[CONTROLLER_EVENT_EMITTER].emit('gui.removeFilledRowsAndCells');

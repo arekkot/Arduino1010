@@ -2,7 +2,7 @@
 
 import {ShapeFactory} from '../src/app/ShapeFactory';
 import {Shape} from '../src/app/Shape';
-import {Config} from './stub/config';
+import {Config} from './stub/gui/config';
 
 describe('ShapeFactory Class', () => {
     let shapeFactory;

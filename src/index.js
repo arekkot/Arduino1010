@@ -2,7 +2,6 @@
 
 import * as EventEmitter from 'event-emitter';
 import {Area} from './app/Area';
-import {Point} from './app/Point';
 import {Grid} from './app/Grid';
 import {Controller} from './app/Controller';
 import {ShapeFactory} from './app/ShapeFactory';
@@ -27,7 +26,7 @@ context.fillText("1.", 650, 50);
 context.fillText("2.", 650, 250);
 context.fillText("3.", 650, 450);
 
-const gameArea = new Area(),
+const gameArea = new Area(Config.MAP_SIZE),
     gameController = new Controller(event, gameArea, availableBlocks),
     shapeFactory = new ShapeFactory(Config.BLOCKS);
 
@@ -49,8 +48,10 @@ event.on('gui.drawBlocks', (selectedShape, selectedPoint) => {
     });
 });
 
+// todo: can remove this event?
 event.on('gui.removeProposition', (selectedShape, selectedIndex) => {
     clearBlocks(context, canvasPositionMap.get(selectedIndex), ...selectedShape.points);
+    previousPoints = null;
 });
 
 event.on('gui.removeFilledRowsAndCells', () => {

@@ -9,14 +9,16 @@
     "beforeEach": true,
     "it": true,
     "expect": true,
+    "jasmine": true,
+    "spyOn": true,
 
     "Map": true,
     "WeakMap": true,
     "Symbol": true,
-
     "document": true,
     "window": true,
-    "Path2D": true
+    "Path2D": true,
+    "io": true
   },
   "rules": {
     "semi": 2

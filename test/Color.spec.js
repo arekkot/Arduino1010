@@ -19,8 +19,8 @@ describe('Color Class', () => {
         expect(color.b).toBe(50);
     });
 
-    it('clones object', () => {
-        const clonedColor = color.clone;
+    it('allows to clone object', () => {
+        const clonedColor = color.clone();
 
         expect(clonedColor instanceof Color).toBeTruthy();
         expect(clonedColor).not.toBe(color);

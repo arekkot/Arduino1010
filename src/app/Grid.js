@@ -3,12 +3,14 @@
 import {Config} from './gui/config';
 import {Point} from './Point';
 
+const GRID_CONTEXT = Symbol('Point X');
+
 export class Grid {
     /**
      * @param {CanvasRenderingContext2D} context
      */
     constructor (context) {
-        this.context = context;
+        this[GRID_CONTEXT] = context;
     }
 
     /**
@@ -23,38 +25,38 @@ export class Grid {
      * @returns {Map}
      */
     draw (startX, startY, gridSize, columnSize, columnPadding) {
-        const columnNumber = Math.ceil(gridSize / columnSize);
+        const columnNumber = Math.floor(gridSize / columnSize);
 
         if (columnNumber < 2) {
             throw new Error('Number of columns has to be bigger or equal to 2.');
         }
 
-        this.context.save();
-        this.context.lineWidth = 1;
-        this.context.strokeStyle = Config.COLOR.GREY;
-        this.context.fillStyle = Config.COLOR.GREY;
+        this[GRID_CONTEXT].save();
+        this[GRID_CONTEXT].lineWidth = 1;
+        this[GRID_CONTEXT].strokeStyle = Config.COLOR.GREY;
+        this[GRID_CONTEXT].fillStyle = Config.COLOR.GREY;
 
         startX += 0.5;
         startY += 0.5;
 
-        this.context.strokeRect(startX, startY, gridSize, gridSize);
+        this[GRID_CONTEXT].strokeRect(startX, startY, gridSize, gridSize);
 
         for (let i = 1; i < columnNumber; ++i) {
             const newX = startX + i * columnSize,
                 newY = startY + i * columnSize;
 
-            this.context.beginPath();
-            this.context.moveTo(newX, startY);
-            this.context.lineTo(newX, startY + gridSize);
-            this.context.stroke();
+            this[GRID_CONTEXT].beginPath();
+            this[GRID_CONTEXT].moveTo(newX, startY);
+            this[GRID_CONTEXT].lineTo(newX, startY + gridSize);
+            this[GRID_CONTEXT].stroke();
 
-            this.context.beginPath();
-            this.context.moveTo(startX, newY);
-            this.context.lineTo(startX + gridSize, newY);
-            this.context.stroke();
+            this[GRID_CONTEXT].beginPath();
+            this[GRID_CONTEXT].moveTo(startX, newY);
+            this[GRID_CONTEXT].lineTo(startX + gridSize, newY);
+            this[GRID_CONTEXT].stroke();
         }
 
-        this.context.restore();
+        this[GRID_CONTEXT].restore();
 
         return makeMap(columnNumber, startX, startY, columnSize, columnPadding);
     }

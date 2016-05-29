@@ -1,14 +1,20 @@
 export const Config = {
+    MAP_SIZE: 10,
+    
     GRID_SIZE: 60,
     BLOCK_SIZE: 51,
+    
     STROKE_SIZE: 55,
+    
     SMALL_BLOCK_SIZE: 30,
+    
     COLOR: {
         RED: 'rgb(244, 67, 54)',
         WHITE: 'rgb(255, 255, 255)',
         GREEN: 'rgb(0, 150, 136)',
         GREY: 'rgb(192, 192, 192)'
     },
+    
     BLOCKS: [
         {
             //--. 00.

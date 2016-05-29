@@ -12,12 +12,14 @@ export class ShapeFactory {
      */
     constructor (config) {
         this[SHAPE_FACTORY_SHAPES] = config.map(shape => {
-            const color = new Color(...shape.color),
-                points = shape.points.map(point => {
-                    return new Point(...point);
+            const points = shape.points.map(cords => {
+                    return new Point(...cords);
                 });
 
-            return new Shape(color, ...points);
+            return new Shape(
+                new Color(...shape.color),
+                ...points
+            );
         });
 
     }
@@ -28,6 +30,6 @@ export class ShapeFactory {
     make () {
         const key = this[SHAPE_FACTORY_SHAPES].length * Math.random() << 0;
 
-        return this[SHAPE_FACTORY_SHAPES][key].clone;
+        return this[SHAPE_FACTORY_SHAPES][key].clone();
     }
 }

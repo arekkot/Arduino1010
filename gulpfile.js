@@ -148,7 +148,8 @@ gulp.task('lint', () => {
     return gulp.src([
             `${paths.src.root}/*.js`,
             `${paths.src.js}/**/*.js`,
-            `${paths.src.test}/**/*.js`
+            `${paths.src.test}/**/*.js`,
+            `!${paths.src.test}/stub/**/*.js`
         ])
         .pipe(eslint({
             extends: 'eslint:recommended'

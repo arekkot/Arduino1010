@@ -53,7 +53,7 @@ export class Color {
     /**
      * @returns {Color}
      */
-    get clone () {
+    clone () {
         return new Color(this.r, this.g, this.b);
     }
 }
