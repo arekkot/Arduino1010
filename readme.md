@@ -28,8 +28,8 @@ Please follow step by step:
 
 1. Prepare:
  - 6 [LEDs](https://www.google.pl/search?q=LED), 
- - 9 [resistor](https://www.google.pl/search?q=resistor+330+ohm) (330 Ω), 
- - 3 buttons (prefered ["Tactical Switch"](https://www.google.pl/search?q=Tactical+Switch)), 
+ - 10 [resistor](https://www.google.pl/search?q=resistor+330+ohm) (330 Ω), 
+ - 4 buttons (prefered ["Tactical Switch"](https://www.google.pl/search?q=Tactical+Switch)), 
  - [Thumb Joystick](https://www.google.pl/search?q=thumb+joystick)
 2. Analyze the [**Circuit diagram**](#circuit-diagram)
 3. Based on [**Breadboard preview**](#breadboard-preview) - build *Game Controller*
@@ -53,9 +53,34 @@ Please follow [the instruction](https://github.com/rwaldron/johnny-five/wiki/Get
 
 ![Circuit diagram](docs/Arduino1010_schem.png)
 
+## How to play?
+
+Based on breadboard above:
+
+* Buttons (from left to right) mean which shape should be active,
+* A LED above the button mean which shape is active,
+* If you press the same button two times - shape will be indeterminate,
+* After paste a shape, a LED will switch off,
+* If you cannot move anywhere - two LEDs will be blink alternately, otherwise - a green LED will be blinking
+* After chose a shape - you can chose a place to paste (use the joystick)
+* If you want to paste the shape - press down the joystick
+* If you want to restart game - press button at right down
+
+## To do
+
+I'm open for any improvements of the game. If you have any idea, but you 
+don't want or you cannot how do this, please leave me an issue.
+
+My road map contains following points:
+
+- [ ] Add display [LCD HD44780](https://www.google.pl/search?q=LCD+HD44780),
+- [ ] Easy way to add custom shapes,
+- [ ] Try to optimize used pins,
+- [ ] In the future: build a device (which Computer won't be needed).
+
 ## Development
 
-I'm open for any improvements of the game. If you want to do anything with the game, please follow rules below:
+If you want to do anything with the game, please follow rules below:
 
 * Each change breadboard or circuit diagram should be updated (use [Fritzing](http://fritzing.org/home/)),
 * Each change of code should be tested (unit tests),

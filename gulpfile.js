@@ -157,7 +157,7 @@ gulp.task('lint', () => {
         .pipe(eslint.format());
 });
 
-gulp.task('test', ['scripts:test', 'lint'], (done) => {
+gulp.task('test', ['scripts:test', 'lint'], done => {
     const server = new karma.Server({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true

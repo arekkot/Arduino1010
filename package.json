@@ -1,7 +1,7 @@
 {
   "name": "arduino1010",
   "version": "0.0.1",
-  "description": "A popular game \"1010!\" controlled through Arduino Board.",
+  "description": "A popular game \"1010!\" controlled by Arduino Board.",
   "scripts": {
     "gulp": "gulp"
   },
@@ -11,7 +11,8 @@
   },
   "keywords": [
     "Arduino",
-    "1010!"
+    "1010!",
+    "Sockets"
   ],
   "author": "Kamil Piechaczek <github@pomek.pl>",
   "license": "GPL-3.0",

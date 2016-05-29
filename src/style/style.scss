@@ -1,5 +1,9 @@
 * {
-  box-sizing: border-box;;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Tahoma;
 }
 
 .wrapper,
@@ -48,7 +52,6 @@
 
   &__title {
     color: #333;
-    font-family: Tahoma;
     font-size: 48px;
     text-align: center;
 
@@ -59,9 +62,18 @@
 }
 
 .game-over {
+  &__score {
+    &:before {
+      content: '(';
+    }
+
+    &:after {
+      content: ')';
+    }
+  }
+
   &__title {
     color: #333;
-    font-family: Tahoma;
     font-size: 72px;
     text-align: center;
     margin: 0;

@@ -5,10 +5,11 @@ const five = require('johnny-five'),
 
 const BLINK_TIME = 500;
 
-function main (socket) {
+module.exports = (socket) => {
     let isInitializable = false,
         previousValue = null,
         joystick = null,
+        resetButton,
         putButton = null,
         greenLed = null,
         ledMap = new Map(),
@@ -17,7 +18,7 @@ function main (socket) {
         redLed_1 = null,
         redLed_2 = null;
 
-    socket.on('connection', (socket) => {
+    socket.on('connection', socket => {
         reloadGame();
 
         socket.on('control.pastedItem', () => {
@@ -47,6 +48,7 @@ function main (socket) {
             pins: ['A0', 'A1']
         });
         putButton = new five.Button(4);
+        resetButton = new five.Button(13);
 
         greenLed.blink(BLINK_TIME);
 
@@ -114,6 +116,10 @@ function main (socket) {
         putButton.on('up', () => {
             socket.emit('control.pasteBlock');
         });
+
+        resetButton.on('up', () => {
+            socket.emit('control.restart');
+        });
     });
 
     function clearLeds () {
@@ -145,6 +151,4 @@ function main (socket) {
             greenLed.blink(BLINK_TIME);
         }
     }
-}
-
-module.exports = main;
+};

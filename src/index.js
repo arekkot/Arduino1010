@@ -91,7 +91,8 @@ event.on('gui.gameOver', () => {
 
 event.on('gui.appendedShape', earnedPoints => {
     points += earnedPoints;
-    console.log('Score:', points);
+
+    document.querySelector('.js-score').innerText = points.toString();
 });
 
 socket.on('control.ready', () => {
@@ -131,6 +132,10 @@ socket.on('control.selectProposition', number => {
         const shape = availableBlocks.get(number);
         socket.emit('control.selectedColor', shape.color.hex);
     }
+});
+
+socket.on('control.restart', () => {
+    window.location.reload();
 });
 
 event.emit('gui.makeNewProposition', availableBlocks, 1);
